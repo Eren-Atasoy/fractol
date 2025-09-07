@@ -30,6 +30,14 @@ t_complex iterate_formul(t_complex z,t_complex c)
 	return (result);
 }
 
+int get_gradient_color(double iter, int max_iter)
+{
+    double t = iter / max_iter; // normalize
+    int r = (int)(9 * (1 - t) * t * t * t * 255);
+    int g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+    int b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+    return (r << 16) | (g << 8) | b;
+}
 
 static void    render_pixel(char *addr, int x, int y, int bpp, int size_line)
 {
@@ -55,17 +63,25 @@ static void    render_pixel(char *addr, int x, int y, int bpp, int size_line)
 
 		if((z.re * z.re) + (z.img * z.img) > out_of_value)
 		{
-			color = scale_map(i, BLACK, WHITE, 0, max_iteration);
+			double zn = sqrt(z.re*z.re + z.img*z.img);
+			double nu = log(log(zn) / log(2)) / log(2);
+			double smooth_iter = i + 1 - nu;
+
+			 color = get_gradient_color(smooth_iter, max_iteration);
+
 			
 
     		dst = addr + (y * size_line + x * (bpp / 8));
     		*(unsigned int *)dst = color;
 			return;
 		}
-		++i;
+		i++;
 	}
+	
+			 
+		
 	dst = addr + (y * size_line + x * (bpp / 8));
-    		*(unsigned int *)dst = PURPLE;
+    		*(unsigned int *)dst = BLACK ;
 
 }
 
