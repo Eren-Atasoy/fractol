@@ -4,7 +4,14 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux -Ilibft
 
 CFILES = \
-	main.c
+	main.c \
+	color.c \
+	init.c \
+	render.c \
+	math_utils.c \
+	error.c \
+	event.c \
+
 
 OFILES = $(CFILES:.c=.o)
 
