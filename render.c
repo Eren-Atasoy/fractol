@@ -2,8 +2,7 @@
 void draw_fractol(t_fractol *fractol)
 {
 
-    fractol->canvas.img = mlx_new_image(fractol->mlx, WIDTH, HEIGHT);
-
+    
 	if(!fractol->canvas.img)
 	{
 		mlx_destroy_window(fractol->mlx,fractol->win);
@@ -40,8 +39,7 @@ void draw_fractol(t_fractol *fractol)
 	z.re = 0.0;
 	z.img = 0.0;
     fractol->max_iteration = 100;
-	fractol->out_of_value = 4;
-    fractol->zoom = 1.0;
+
 	c.re = (scale_map(x, -2, +2, 0, WIDTH) * fractol-> zoom);
 	c.img = (scale_map(y, +2, -2, 0, HEIGHT) * fractol -> zoom);
 	while(i < fractol->max_iteration )

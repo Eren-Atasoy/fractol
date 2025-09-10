@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/10 23:38:09 by eratasoy          #+#    #+#             */
+/*   Updated: 2025/09/11 00:13:35 by eratasoy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "fractol.h"
 
 void    free_memory(t_fractol *fractol)
 {
     if (fractol->canvas.img)
-        mlx_destroy_image(fractol->mlx, fractol->canvas.img);
+        mlx_destroy_image(fractol->mlx, fractol->canvas.img);	
     if (fractol->win)
         mlx_destroy_window(fractol->mlx, fractol->win);
     if (fractol->mlx)

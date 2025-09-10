@@ -76,6 +76,7 @@ int     get_gradient_color(double iter, int max_iter);
 void event_handler(t_fractol *fractol);
 
 int     check_args(int argc, char *argv);
+void    free_memory(t_fractol *fractol);
 
 
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
