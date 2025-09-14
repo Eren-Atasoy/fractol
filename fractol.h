@@ -12,20 +12,20 @@
 
 
 
-#define RED     0xFF4D6D   // pembe-kırmızı
-#define GREEN   0x7CFF6B   // parlak limon-yeşil
-#define BLUE    0x4DB8FF   // parlak gök-mavisi
-#define WHITE   0xFFFFFF
+
 #define BLACK   0x000000
-#define PURPLE  0xB24DFF   // neon mor
+
+# define ERROR "Error: Unexpected failure occurred"
 
 # define ERROR_MESSAGE \
 "Error: Invalid parameter. Please check your input.\n" \
 "\"./fractol mandelbrot\"\n" \
 "or\n" \
-"\"./fractol julia <reel> <imaginary>\"\n"
- # define HEIGHT 1080
-# define WIDTH 1920
+"\"./fractol julia <reel> <imaginary>\"\n" \
+"Here are some recommended Julia parameters:\njulia -0.1 0\njulia -0.58 -0.55\njulia -0.84 0.22\n"
+
+ # define HEIGHT 768
+# define WIDTH 1024
 
 
 typedef struct s_complex
@@ -33,6 +33,12 @@ typedef struct s_complex
     double re;
     double img;
 }   t_complex;
+
+typedef struct s_range
+{
+	double min;
+	double max;
+}	t_range;
 
 typedef struct s_canvas
 {
@@ -48,6 +54,9 @@ typedef struct s_fractol
     void    *mlx;
     void    *win;
     t_canvas    canvas;
+	t_complex	julia_arg;
+	t_range 	x_range;
+	t_range		y_range;
     int     color;
     double out_of_value;
 	int max_iteration;
@@ -59,26 +68,31 @@ typedef struct s_fractol
 }   t_fractol;
 
 
-void    init_window(void);
+void    init_window(t_fractol *fractol,char **argv);
 
-void draw_fractol(t_fractol *fractol);
- void    render_pixel(int x, int y,t_fractol *fractol);
 
-double  scale_map(double value, double new_min, double new_max,
-                  double old_min, double old_max);
+void	draw_fractol(t_fractol *fractol);
+
+void	render_mandelbrot(int x, int y,t_fractol *fractol,char * line);
+void	render_julia(int x, int y,t_fractol *fractol,char * line);
+
+
+double scale_map(double value, t_range new_range, double old_min,double old_max);
+
 t_complex iterate_formul(t_complex z, t_complex c);
- void error_handler(void);
+
+void	error_handler(char *message);
 
 
 int     get_gradient_color(double iter, int max_iter);
 
 
-void event_handler(t_fractol *fractol);
+void	event_handler(t_fractol *fractol);
 
 int     check_args(int argc, char *argv);
 void    free_memory(t_fractol *fractol);
 
-
+double	ft_atof(char *nptr);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 void    ft_putstr_fd(char *s, int fd);
 

@@ -1,9 +1,9 @@
 
 #include "fractol.h"
 
- void error_handler(void)
+ void error_handler(char *message)
 {
-	perror("Error: Memory allocation failed.");
+	perror(message);
 	exit(EXIT_FAILURE);
 }
 
@@ -13,14 +13,11 @@ int check_args(int argc, char *argv)
 	{
 		return (1);
 	}
-	else if(argc == 4 && !ft_strncmp(argv,"julia",5) )
+	else if((argc == 4 || argc == 2 ) && !ft_strncmp(argv,"julia",5))
 	{
-		return (1);
+		return (2);
 	}
-	else
-	{
-		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
-		exit(EXIT_FAILURE);
+
 		return(0);
-	}
+	
 }
