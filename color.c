@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eratasoy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 02:41:05 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/19 02:47:37 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/19 05:10:08 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_gradient_color(double iter, int max_iter, int type)
 	int		r;
 	int		g;
 	int		b;
-	int		band_size;
+	int		band;
 
 	t = iter / max_iter;
 	if (type == 1)
@@ -31,8 +31,7 @@ int	get_gradient_color(double iter, int max_iter, int type)
 	}
 	else if (type == 2)
 	{
-		band_size = 20;
-		band = (int)iter % band_size;
+		band = (int)iter % 20;
 		r = (band * 8) % 256;
 		g = (band * 4) % 256;
 		b = (band * 12) % 256;
