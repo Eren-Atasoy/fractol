@@ -1,99 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eratasoy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/19 04:02:48 by eratasoy          #+#    #+#             */
+/*   Updated: 2025/09/19 04:16:57 by eratasoy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-double scale_map(double value, t_range new_range, double old_min,double old_max)
+double	scale_map(double value, t_range new_range, double old_min,
+		double old_max)
 {
- return	((value - old_min) / (old_max - old_min) 
- * (new_range.max - new_range.min) + new_range.min);
+	return ((value - old_min) / (old_max - old_min)
+		* (new_range.max - new_range.min) + new_range.min);
 }
 
-t_complex iterate_formul(t_complex z,t_complex c)
+t_complex	iterate_formul(t_complex z, t_complex c)
 {
-	// z^2 + c;
-	t_complex z_square;
-	t_complex result;
+	t_complex	z_square;
+	t_complex	result;
 
 	z_square.re = (z.re * z.re) - (z.img * z.img);
-	z_square.img = 2 * (z.re * z.img) ;
-
+	z_square.img = 2 * (z.re * z.img);
 	result.re = z_square.re + c.re;
 	result.img = z_square.img + c.img;
 	return (result);
 }
 
-
-
-static long parse_integer(char **str)
+static long	parse_integer(char **str, int *flag)
 {
-    long sum = 0;
+	long	sum;
 
-	
-	while(**str)
+	sum = 0;
+	while (**str)
 	{
-		if(!(**str >= '0' && **str <= '9') && **str != '.' && **str != '-' && **str != '+')
+		if (!(**str >= '0' && **str <= '9') && **str != '.' && **str != '-'
+			&& **str != '+')
 		{
 			error_handler(ERROR_MESSAGE);
 		}
-		else if(**str >= '0' && **str <= '9')
+		else if (**str >= '0' && **str <= '9')
 		{
-        	sum = sum * 10 + (**str - '0');
+			sum = sum * 10 + (**str - '0');
+			*flag = 1;
 		}
-		else if(**str == '.')
+		else if (**str == '.')
 			return (sum);
-		else if(**str == '-')
+		else if (**str == '-')
 			error_handler(ERROR_MESSAGE);
-		else if(**str == '+')
+		else if (**str == '+')
 			error_handler(ERROR_MESSAGE);
-
-		 (*str)++;
+		(*str)++;
 	}
 	return (sum);
 }
 
-static double parse_fraction(char **str)
+static double	parse_fraction(char **str, int *flag)
 {
-    double division = 0.0;
-    double divisor = 10.0;
+	double	division;
+	double	divisor;
 
-    if (**str == '.')
-    {
-        (*str)++;
-		while(**str)
+	division = 0.0;
+	divisor = 10.0;
+	if (**str == '.')
+	{
+		(*str)++;
+		while (**str)
 		{
-			if(!(**str >= '0' && **str <= '9') && **str != '.' && **str != '-' && **str != '+')
-			{
+			if (!(**str >= '0' && **str <= '9') && **str != '.'
+				&& **str != '-' && **str != '+')
 				error_handler(ERROR_MESSAGE);
-			}
-			else if(**str == '.' || **str == '-' || **str == '+')
+			else if (**str == '.' || **str == '-' || **str == '+')
 				error_handler(ERROR_MESSAGE);
-
-			else if(**str >= '0' && **str <= '9')
+			else if (**str >= '0' && **str <= '9')
 			{
 				division += (**str - '0') / divisor;
 				divisor *= 10;
-
+				*flag = 1;
 			}
 			(*str)++;
 		}
 	}
-    return (division);
+	return (division);
 }
 
 double	ft_atof(char *nptr)
 {
-	int		sign;
-	int		result;
+	double		sign;
+	double		result;
+	double		fraction;
+	int			has_number;
+	int			i;
 
-	sign = 1;
-
+	i = 0;
+	has_number = 0;
+	sign = 1.0;
 	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
 		nptr++;
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
-			sign = -1;
+			sign = -1.0;
 		nptr++;
 	}
-	result = parse_integer(&nptr);
-	return ((double)((result)+
-	 parse_fraction(&nptr)) * sign);                    
+	result = parse_integer(&nptr, &has_number);
+	fraction = parse_fraction(&nptr, &has_number);
+	if (!has_number)
+		error_handler(ERROR_MESSAGE);
+	return ((double)((result + fraction) * sign));
 }
