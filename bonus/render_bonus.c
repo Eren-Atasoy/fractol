@@ -6,7 +6,7 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 04:17:52 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/24 01:28:41 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:56:20 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	render_mandelbrot(int x, int y, t_fractol *fractol)
 		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
 		{
 			fractol->color = get_gradient_color(i,
-					fractol->max_iteration);
+					fractol->max_iteration, fractol->color_shift);
 			draw_pixel(fractol, x, y);
 			return ;
 		}
@@ -94,7 +94,7 @@ void	render_julia(int x, int y, t_fractol *fractol)
 		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
 		{
 			fractol->color = get_gradient_color(i,
-					fractol->max_iteration);
+					fractol->max_iteration, fractol->color_shift);
 			draw_pixel(fractol, x, y);
 			return ;
 		}
@@ -121,7 +121,7 @@ void	render_tricorn(int x, int y, t_fractol *fractol)
 		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
 		{
 			fractol->color = get_gradient_color(i,
-					fractol->max_iteration);
+					fractol->max_iteration, fractol->color_shift);
 			draw_pixel(fractol, x, y);
 			return ;
 		}

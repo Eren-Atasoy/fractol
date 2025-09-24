@@ -6,7 +6,7 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 04:43:49 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/20 20:12:25 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:49:38 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ typedef struct s_fractol
 	int			max_iteration;
 	int			type_of_fractal;
 	double		zoom;
-	double		axis_x;
-	double		axis_y;
 }	t_fractol;
 
 void		init_window(t_fractol *fractol, char **argv);

@@ -6,11 +6,25 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 18:17:04 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/22 20:21:21 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:27:36 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
+
+void	free_memory(t_fractol	*fractol)
+{
+	if (fractol->canvas.img)
+		mlx_destroy_image(fractol->mlx, fractol->canvas.img);
+	if (fractol->win)
+		mlx_destroy_window(fractol->mlx, fractol->win);
+	if (fractol->mlx)
+	{
+		mlx_destroy_display(fractol->mlx);
+		free(fractol->mlx);
+	}
+	exit(EXIT_FAILURE);
+}
 
 double	scale_map(double value, t_range new_range, double old_min,
 		double old_max)

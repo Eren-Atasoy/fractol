@@ -6,7 +6,7 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 18:18:27 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/22 15:26:08 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:13:37 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_fractol_data(t_fractol *fractol)
 	fractol->mlx = NULL;
 	fractol->win = NULL;
 	fractol->color = 0xFFFFFF;
+	fractol->color_shift = 0;
 	fractol->out_of_value = 4.0;
 	fractol->max_iteration = 50;
 	fractol->zoom = 1.0;
