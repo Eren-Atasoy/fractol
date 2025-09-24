@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 18:18:27 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/20 19:45:19 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:26:08 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 
 void	init_fractol_data(t_fractol *fractol)
 {

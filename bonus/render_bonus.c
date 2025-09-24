@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 04:17:52 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/22 16:31:51 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/24 01:28:41 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 
 void	draw_fractol(t_fractol *fractol)
 {
@@ -30,6 +30,8 @@ void	draw_fractol(t_fractol *fractol)
 				render_mandelbrot(x, y, fractol);
 			else if (fractol->type_of_fractal == 2)
 				render_julia(x, y, fractol);
+			else if (fractol->type_of_fractal == 3)
+				render_tricorn(x, y, fractol);
 			x++;
 		}
 		x = 0;
@@ -57,11 +59,11 @@ void	render_mandelbrot(int x, int y, t_fractol *fractol)
 	i = 0;
 	z.re = 0.0;
 	z.img = 0.0;
-	c.re = (scale_map(x, fractol->x_range, 0, WIDTH) * fractol->zoom);
-	c.img = (scale_map(y, fractol->y_range, 0, HEIGHT) * fractol->zoom);
+	c.re = (scale_map(x, fractol->x_range, 0, WIDTH));
+	c.img = (scale_map(y, fractol->y_range, 0, HEIGHT));
 	while (i < fractol->max_iteration)
 	{
-		z = iterate_formul(z, c);
+		z = iterate_formul(z, c, fractol->type_of_fractal);
 		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
 		{
 			fractol->color = get_gradient_color(i,
@@ -82,13 +84,40 @@ void	render_julia(int x, int y, t_fractol *fractol)
 	int			i;
 
 	i = 0;
-	z.re = (scale_map(x, fractol->x_range, 0, WIDTH) * fractol->zoom);
-	z.img = (scale_map(y, fractol->y_range, 0, HEIGHT) * fractol->zoom);
+	z.re = (scale_map(x, fractol->x_range, 0, WIDTH));
+	z.img = (scale_map(y, fractol->y_range, 0, HEIGHT));
 	c.re = fractol->julia_arg.re;
 	c.img = fractol->julia_arg.img;
 	while (i < fractol->max_iteration)
 	{
-		z = iterate_formul(z, c);
+		z = iterate_formul(z, c, fractol->type_of_fractal);
+		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
+		{
+			fractol->color = get_gradient_color(i,
+					fractol->max_iteration);
+			draw_pixel(fractol, x, y);
+			return ;
+		}
+		i++;
+	}
+	fractol->color = BLACK;
+	draw_pixel(fractol, x, y);
+}
+
+void	render_tricorn(int x, int y, t_fractol *fractol)
+{
+	t_complex	z;
+	t_complex	c;
+	int			i;
+
+	i = 0;
+	z.re = 0.0;
+	z.img = 0.0;
+	c.re = (scale_map(x, fractol->x_range, 0, WIDTH));
+	c.img = (scale_map(y, fractol->y_range, 0, HEIGHT));
+	while (i < fractol->max_iteration)
+	{
+		z = iterate_formul(z, c, fractol->type_of_fractal);
 		if ((z.re * z.re) + (z.img * z.img) > fractol->out_of_value)
 		{
 			fractol->color = get_gradient_color(i,

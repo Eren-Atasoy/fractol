@@ -1,36 +1,48 @@
 NAME = fractol
+BONUS = fractol_bonus
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux -Ilibft
+CFLAGS = -Wall -Wextra -Werror -Iminilibx-linux
 
 CFILES = \
 	main.c \
 	color.c \
 	init.c \
 	render.c \
-	math_utils.c \
+	ft_atof.c \
 	error.c \
 	event.c \
+	utils.c \
+
+BFILES = \
+	bonus/main_bonus.c \
+	bonus/color_bonus.c \
+	bonus/init_bonus.c \
+	bonus/render_bonus.c \
+	bonus/ft_atof_bonus.c \
+	bonus/error_bonus.c \
+	bonus/event_bonus.c \
+	bonus/utils_bonus.c \
 
 
 OFILES = $(CFILES:.c=.o)
+BOFILES =  $(BFILES:.c=.o)
 
 MLX_DIR = minilibx-linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+
 
 all: $(NAME)
 
 
-$(NAME): $(LIBFT) $(OFILES)
+$(NAME): $(OFILES)
 	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OFILES) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OFILES) $(MLX_FLAGS) -o $(NAME)
 
-
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+bonus: $(BOFILES)
+	make -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(BOFILES) $(MLX_FLAGS) -o $(BONUS)
 
 
 %.o: %.c
@@ -38,13 +50,11 @@ $(LIBFT):
 
 
 clean:
-	rm -f $(OFILES)
+	rm -f $(OFILES) $(BOFILES)
 	make clean -C $(MLX_DIR)
-	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(LIBFT_DIR)
+	rm -f $(NAME) $(BONUS)
 
 re: fclean all
 
