@@ -6,7 +6,7 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 04:17:52 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/22 16:31:51 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:22:09 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	draw_fractol(t_fractol *fractol)
 
 	y = 0;
 	x = 0;
-	fractol->canvas.addr = mlx_get_data_addr(fractol->canvas.img,
-			&fractol->canvas.bpp, &fractol->canvas.size_line,
-			&fractol->canvas.endian);
+	clean_and_alloc_image(fractol);
 	while (y < HEIGHT)
 	{
 		while (x < WIDTH)

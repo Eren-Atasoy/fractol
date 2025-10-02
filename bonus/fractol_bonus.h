@@ -6,7 +6,7 @@
 /*   By: eratasoy <eratasoy@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 04:43:49 by eratasoy          #+#    #+#             */
-/*   Updated: 2025/09/24 19:28:16 by eratasoy         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:07:25 by eratasoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ or\n\
 Recommended Julia parameters:\n\
 julia -0.1 0\n\
 julia -0.58 -0.55\n\
-julia -0.84 0.22\n"
+julia 0.355 0.355\n"
 
 typedef struct s_complex
 {
@@ -101,5 +101,5 @@ void		free_memory(t_fractol *fractol);
 double		ft_atof(char *nptr);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);
-
+void		clean_and_alloc_image(t_fractol *fractol);
 #endif
